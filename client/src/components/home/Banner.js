@@ -36,7 +36,7 @@ export default function Banner() {
       keyBoardControl={true}
     >
       {bannerData.map((data) => (
-        <Image src={data.url} alt="banner" />
+        <Image key={data.id} src={data.url} alt="banner" />
       ))}
     </Carousel>
   );
