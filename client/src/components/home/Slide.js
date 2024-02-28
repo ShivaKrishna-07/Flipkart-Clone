@@ -2,6 +2,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import Countdown from "react-countdown";
+import { Link } from "react-router-dom";
 
 import { Box, Button, Divider, Typography, styled } from "@mui/material";
 
@@ -100,18 +101,22 @@ export default function Slide({title, timer}) {
         itemClass="carousel-item-padding-40-px"
         containerClass="carousel-container"
       >
-        {products.map((product) => (
-          <Box textAlign="center" style={{ padding: "25px 15px" }}>
-            <Image src={product.url} alt="" />
-            <Text style={{ color: "#212121", fontWeight: 600 }}>
-              {product.title.shortTitle}
-            </Text>
-            <Text style={{ color: "green", fontWeight: 600 }}>
-              {product.discount}
-            </Text>
-            <Text style={{ color: "#212121" }}>{product.tagline}</Text>
-          </Box>
-        ))}
+        {
+        products.map((product) => (
+          <Link to={`product/${product.id}`} style={{textDecoration:'none'}} >
+            <Box textAlign="center" style={{ padding: "25px 15px" }}>
+              <Image src={product.url} alt="" />
+              <Text style={{ color: "#212121", fontWeight: 600 }}>
+                {product.title.shortTitle}
+              </Text>
+              <Text style={{ color: "green", fontWeight: 600 }}>
+                {product.discount}
+              </Text>
+              <Text style={{ color: "#212121" }}>{product.tagline}</Text>
+            </Box>
+          </Link>
+        ))
+        }
       </Carousel>
     </Component>
   );

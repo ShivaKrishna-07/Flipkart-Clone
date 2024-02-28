@@ -6,21 +6,35 @@ import {DataContext} from '../../context/DataProvider';
 import LoginDialog from '../login/LoginDialog';
 import Profile from './Profile';
 
-const Wrapper = styled(Box)`
-    display:flex;
-    margin: 0 3% 0 auto;
-    & > button, & > p, & > div {
-        margin-right:40px;
-        font-size:16px;
-        align-items: center;
+const Wrapper = styled(Box)(({theme}) => ({
+    display:'flex',
+    paddingLeft: '20px',
+    alignItems: 'center',
+    '& > p, & > div, & > button': {
+        marginRight:40,
+        fontSize:16,
+        alignItems: 'center'
+    },
+    [theme.breakpoints.down('md')]:{
+        display: 'block'
     }
-`
+}))
+
+const Containers = styled(Box)(({theme}) => ({
+    display:'flex',
+    [theme.breakpoints.down('md')]:{
+        display: 'block'
+    }
+}))
 
 const LoginButton = styled(Button)`
     color:#2874f0;
     background: #FFFFFF;
     text-transform:none;
     padding:5px 40px;
+    box-shadow: none;
+    height: 32px;
+    
     border-radius:2px;
     font-weight: 600;
 `
@@ -44,13 +58,13 @@ export default function CustomButtons() {
             <LoginButton variant='contained' onClick={() => openDialog()} >Login</LoginButton>
         }
 
-        <Typography style={{marginTop: 3, paddingTop: 5}}>Become a seller</Typography>
-        <Typography style={{marginTop: 3, paddingTop: 5}}>More</Typography>
+        <Typography style={{ paddingTop: 5, width: 135}}>Become a seller</Typography>
+        <Typography style={{ paddingTop: 5}}>More</Typography>
 
-        <Box style={{display: "flex"}}>
+        <Containers>
             <ShoppingCart/>
             <Typography style={{paddingLeft: 2}}>Cart</Typography>
-        </Box>
+        </Containers>
         <LoginDialog open={open} setOpen={setOpen}/>
     </Wrapper>
   )
