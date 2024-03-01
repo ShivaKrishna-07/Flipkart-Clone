@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {addToCart} from '../../redux/actions/cartActions'
 import { useState } from "react";
+import { payUsingPaytm } from "../../service/api";
+
+import { post } from "../../utils/paytm";
 
 const LeftComponent = styled(Box)(({theme}) => ({
   minWidth: '40%',
@@ -41,6 +44,15 @@ export default function ActionItems({ product }) {
     dispatch(addToCart(id, quantity))
   }
 
+  const buyNow = async () => {
+    let response = await payUsingPaytm({ammount: 500, email: 'tarunyadav@gmail.com'})
+    let information = {
+      action: 'https://securegw-stage.paytm.in/order/process',
+      params: response
+    }
+    post(information);
+  }
+
   return (
     <LeftComponent>
       <Box style={{padding: "15px 20px", border: "1px solid #f0f0f0",}} >
@@ -56,7 +68,7 @@ export default function ActionItems({ product }) {
         Add to Cart
       </StyledButton>
       </Link>
-      <StyledButton variant="contained" style={{ background: "#fb541b" }}>
+      <StyledButton onClick={() => buyNow()} variant="contained" style={{ background: "#fb541b" }}>
         <Flash />
         Buy Now
       </StyledButton>
